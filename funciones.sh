@@ -54,8 +54,6 @@ function f_datos {
         echo -e "${rojo}${negrita}Error: Debes proporcionar el nombre de la máquina, el tamaño del volumen y el nombre de la red.${normal}"
         exit 1
     fi
-
-    ruta_maquina="/srv/discos/$nombremaquina.qcow2"
 }
 function f_volumen {
     echo -e "${naranja}Creando volumen a partir de la plantilla..."
@@ -68,7 +66,7 @@ function f_volumen {
 function f_hostname {
     echo -e "${naranja}Cambiando el hostname a la nueva maquina..."
     sleep 1
-    virt-customize --connect "qemu:///system" -a ${ruta_maquina} --hostname "${nombremaquina}" >> /dev/null
+    virt-customize --connect "qemu:///system" -a "/var/lib/libvirt/images/${nombremaquina}.qcow2" --hostname "${nombremaquina}" >> /dev/null
     echo -e "${naranja}${negrita}Hostname cambiado con éxito!${normal}"
     echo ""
 }
